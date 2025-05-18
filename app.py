@@ -46,13 +46,13 @@ tab1, tab2 = st.tabs(["📈 Exponencial", "🔄 Logístico"])
 with tab1:
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown(f"""
+        st.markdown(rf"""
         ### Ecuación Diferencial
         ```math
-        \\frac{{dN}}{{dt}} = {r_max:.2f}N
+        \frac{{dN}}{{dt}} = {r_max:.2f}N
         ```
         """)
-        st.markdown(f"""
+        st.markdown(rf"""
         ### Solución (Transformada de Laplace)
         ```math
         N(t) = {N0}e^{{{r_max:.2f}t}}
@@ -68,16 +68,16 @@ with tab1:
 with tab2:
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown(f"""
+        st.markdown(rf"""
         ### Ecuación Diferencial
         ```math
-        \\frac{{dN}}{{dt}} = {r_max:.2f}\\left(1 - \\frac{{N}}{{{K}}}\\right)N
+        \frac{{dN}}{{dt}} = {r_max:.2f}\left(1 - \frac{{N}}{{{K}}}\right)N
         ```
         """)
-        st.markdown(f"""
+        st.markdown(rf"""
         ### Solución (Sustitución)
         ```math
-        N(t) = \\frac{{{K}}}{{1 + \\left(\\frac{{{K}-{N0}}}{{{N0}}}\\right)e^{{-{r_max:.2f}t}}}}
+        N(t) = \frac{{{K}}}{{1 + \left(\frac{{{K}-{N0}}}{{{N0}}}\right)e^{{-{r_max:.2f}t}}}}
         ```
         """)
     with col2:
