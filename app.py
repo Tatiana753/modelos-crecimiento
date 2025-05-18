@@ -120,23 +120,38 @@ ax.grid(True)
 ax.legend()
 st.pyplot(fig_comp)
 
-# Explicación teórica
+# Explicación teórica con ecuaciones dinámicas
 with st.expander("📚 Explicación Teórica Detallada"):
-    st.markdown("""
+    st.markdown(f"""
     ### Crecimiento Exponencial
-    - **Ecuación**: $\frac{dN}{dt} = rN$
-    - **Solución**: $N(t) = N_0 e^{rt}$
-    - **Transformada de Laplace**: 
-      $\mathcal{L}\{N\} = \frac{N_0}{s - r}$
+    - **Ecuación diferencial**: 
+      $\frac{{dN}}{{dt}} = {r_max:.2f}N$
+    - **Solución general**: 
+      $N(t) = N_0 e^{{rt}} = {N0}e^{{{r_max:.2f}t}}$
+    - **Transformada de Laplace**:
+      1. Aplicamos Laplace: $s\mathcal{{L}}\{{N\}} - N(0) = {r_max:.2f}\mathcal{{L}}\{{N\}}$
+      2. Despejamos: $\mathcal{{L}}\{{N\}} = \\frac{{{N0}}}{{s - {r_max:.2f}}}$
+      3. Transformada inversa: $N(t) = {N0}e^{{{r_max:.2f}t}}$
     
     ### Crecimiento Logístico
-    - **Ecuación no lineal**: $\frac{dN}{dt} = rN\left(1 - \frac{N}{K}\right)$
-    - **Linealización**: Sustitución $u = \frac{1}{N}$
-    - **Solución**: $N(t) = \frac{K}{1 + \left(\frac{K-N_0}{N_0}\right)e^{-rt}}$
+    - **Ecuación diferencial**: 
+      $\frac{{dN}}{{dt}} = {r_max:.2f}N\\left(1 - \\frac{{N}}{{{K}}}\\right)$
+    - **Linealización** (sustitución de Bernoulli):
+      1. Definimos $u = \\frac{{1}}{{N}}$
+      2. Derivamos: $\\frac{{du}}{{dt}} = -\\frac{{1}}{{N^2}}\\frac{{dN}}{{dt}}$
+      3. Sustituimos: $\\frac{{du}}{{dt}} + {r_max:.2f}u = \\frac{{{r_max:.2f}}}{{{K}}}$
+    - **Solución**: 
+      $N(t) = \\frac{{{K}}}{{1 + \\left(\\frac{{{K}-{N0}}}{{{N0}}}\\right)e^{{-{r_max:.2f}t}}}}$
+    
+    ### Interpretación Biológica
+    - **r = {r_max:.2f}**: Tasa intrínseca de crecimiento
+    - **K = {K}**: Capacidad de carga del ambiente
+    - **N₀ = {N0}**: Población inicial
     
     ### Aplicaciones
-    - **Biológicas**: Crecimiento de bacterias, poblaciones animales
-    - **Económicas**: Modelos de mercado con recursos limitados
+    - **Microbiología**: Crecimiento bacteriano (fase exponencial)
+    - **Ecología**: Modelado de poblaciones animales
+    - **Epidemiología**: Propagación de enfermedades
     """)
 
 # Pie de página
