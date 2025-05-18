@@ -58,7 +58,13 @@ with tab1:
         N(t) = {N0}e^{{{r_max:.2f}t}}
         ```
         """)
-        
+    with col2:
+        fig, ax = plt.subplots(figsize=(8, 4))
+        ax.plot(t_vals, N_exp, 'b-', lw=2)
+        ax.set_title("Crecimiento Exponencial")
+        ax.grid(True, ls='--', alpha=0.5)
+        st.pyplot(fig)
+
 with tab2:
     col1, col2 = st.columns(2)
     with col1:
@@ -74,6 +80,14 @@ with tab2:
         N(t) = \\frac{{{K}}}{{1 + \\left(\\frac{{{K}-{N0}}}{{{N0}}}\\right)e^{{-{r_max:.2f}t}}}}
         ```
         """)
+    with col2:
+        fig, ax = plt.subplots(figsize=(8, 4))
+        ax.plot(t_vals, N_log, 'r-', lw=2)
+        ax.axhline(K, color='gray', ls='--', label=f'K = {K}')
+        ax.set_title("Crecimiento Logístico")
+        ax.grid(True, ls='--', alpha=0.5)
+        ax.legend()
+        st.pyplot(fig)
 
 # Footer
 st.markdown("---")
