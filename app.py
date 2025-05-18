@@ -1,94 +1,28 @@
+# app.py - Versión lista para despliegue
 import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
 from matplotlib import rcParams
+from sympy import symbols
 
-# Configuración de la página
+# Configuración esencial para Streamlit Sharing
 st.set_page_config(
-    page_title="Modelos Poblacionales con Laplace",
-    page_icon="📈",
-    layout="wide"
+    page_title="Modelos de Crecimiento Poblacional",
+    layout="wide",
+    menu_items={
+        'Get Help': 'https://docs.streamlit.io',
+        'Report a bug': None,
+        'About': "Análisis de modelos poblacionales con Transformada de Laplace"
+    }
 )
 
-# Configuración estética
-rcParams['font.family'] = 'sans-serif'
-rcParams['font.sans-serif'] = ['Arial']
-
-# Título
-st.title("Análisis de Crecimiento Poblacional")
-st.markdown("""
-Aplicación interactiva que muestra modelos de crecimiento con Transformada de Laplace.
-""")
-
-# Sidebar
-with st.sidebar:
-    st.header("⚙️ Parámetros")
-    r_max = st.slider("Tasa de crecimiento (rₘₐₓ)", 0.1, 2.0, 0.5, 0.05)
-    K = st.slider("Capacidad de carga (K)", 100, 5000, 1000, 100)
-    N0 = st.slider("Población inicial (N₀)", 1, 100, 10, 1)
-    t_max = st.slider("Tiempo máximo (t)", 5, 50, 10, 1)
-
-# Funciones de modelos
-def modelo_exponencial(t, N0, r):
-    return N0 * np.exp(r * t)
-
-def modelo_logistico(t, N0, r, K):
-    return K / (1 + ((K - N0)/N0) * np.exp(-r * t))
-
-# Soluciones analíticas
-t_vals = np.linspace(0, t_max, 200)
-N_exp = modelo_exponencial(t_vals, N0, r_max)
-N_log = modelo_logistico(t_vals, N0, r_max, K)
-
-# Pestañas
-tab1, tab2 = st.tabs(["📈 Exponencial", "🔄 Logístico"])
-
-with tab1:
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown(rf"""
-        ### Ecuación Diferencial
-        ```math
-        \frac{{dN}}{{dt}} = {r_max:.2f}N
-        ```
-        """)
-        st.markdown(rf"""
-        ### Solución (Transformada de Laplace)
-        ```math
-        N(t) = {N0}e^{{{r_max:.2f}t}}
-        ```
-        """)
-    with col2:
-        fig, ax = plt.subplots(figsize=(8, 4))
-        ax.plot(t_vals, N_exp, 'b-', lw=2)
-        ax.set_title("Crecimiento Exponencial")
-        ax.grid(True, ls='--', alpha=0.5)
-        st.pyplot(fig)
-
-with tab2:
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown(rf"""
-        ### Ecuación Diferencial
-        ```math
-        \frac{{dN}}{{dt}} = {r_max:.2f}\left(1 - \frac{{N}}{{{K}}}\right)N
-        ```
-        """)
-        st.markdown(rf"""
-        ### Solución (Sustitución)
-        ```math
-        N(t) = \frac{{{K}}}{{1 + \left(\frac{{{K}-{N0}}}{{{N0}}}\right)e^{{-{r_max:.2f}t}}}}
-        ```
-        """)
-    with col2:
-        fig, ax = plt.subplots(figsize=(8, 4))
-        ax.plot(t_vals, N_log, 'r-', lw=2)
-        ax.axhline(K, color='gray', ls='--', label=f'K = {K}')
-        ax.set_title("Crecimiento Logístico")
-        ax.grid(True, ls='--', alpha=0.5)
-        ax.legend()
-        st.pyplot(fig)
-
-# Footer
-st.markdown("---")
-st.caption("Creado para el curso de Modelos Matemáticos | [GitHub Repo](https://github.com/tu_usuario/tu_repositorio)")
+# Configuración estética mejorada para producción
+rcParams.update({
+    'font.family': 'sans-serif',
+    'font.sans-serif': ['Arial'],
+    'axes.titlesize': 14,
+    'axes.labelsize': 12,
+    'xtick.labelsize': 10,
+    'ytick.labelsize': 10,
+    'figure.autolayout': True  # Ajuste automático del layout
+})
