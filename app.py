@@ -71,13 +71,13 @@ with tab2:
         st.markdown(f"""
         ### Ecuación Diferencial
         ```math
-        \frac{{dN}}{{dt}} = {r_max:.2f}\left(1 - \frac{{N}}{{{K}}}\right)N
+        \\frac{{dN}}{{dt}} = {r_max:.2f}\\left(1 - \\frac{{N}}{{{K}}}\\right)N
         ```
         """)
         st.markdown(f"""
         ### Solución (Sustitución)
         ```math
-        N(t) = \frac{{{K}}}{{1 + \left(\frac{{{K}-{N0}}}{{{N0}}}\right)e^{{-{r_max:.2f}t}}}}
+        N(t) = \\frac{{{K}}}{{1 + \\left(\\frac{{{K}-{N0}}}{{{N0}}}\\right)e^{{-{r_max:.2f}t}}}}
         ```
         """)
     with col2:
